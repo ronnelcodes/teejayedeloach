@@ -13,3 +13,21 @@ This is a static HTML/CSS/JS storefront. It intentionally does not collect card 
 
 ## Images
 Large PNG photographs and the logo were converted to WebP at high quality. Original files were not modified.
+
+## Blog / From the Writing Desk
+The blog is now data-driven and does not require editing `writing-desk.html`.
+
+**To edit, add, remove, publish, or unpublish blog posts, open:**
+`assets/js/posts.js`
+
+The file contains a large comment block at the top with step-by-step instructions. Each post has:
+- `slug` - the URL identifier (must be unique)
+- `title`
+- `category`
+- `date` in YYYY-MM-DD format
+- `featuredImage` - optional path to an image, or leave it blank
+- `excerpt`
+- `published` - `true` to show it, `false` to hide it
+- `content` - the complete article body using HTML
+
+`writing-desk.html` automatically lists every published post and creates category filters. The Read More links open `post.html?slug=YOUR-POST-SLUG`. Do not manually create a separate HTML page for each article.
