@@ -69,6 +69,26 @@
     document.title = `${post.title} | Teejaye Deloach`;
     const description = document.querySelector('meta[name="description"]');
     if (description) description.setAttribute('content', post.excerpt);
+    const postUrl = `https://teejayedeloach.com/post.html?slug=${encodeURIComponent(post.slug)}`;
+    const imageUrl = post.featuredImage ? new URL(post.featuredImage, 'https://teejayedeloach.com/').href : 'https://teejayedeloach.com/assets/images/social-share.webp';
+    const setMeta = (selector, value) => document.querySelector(selector)?.setAttribute('content', value);
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', postUrl);
+    setMeta('meta[property="og:type"]', 'article');
+    setMeta('meta[property="og:title"]', document.title);
+    setMeta('meta[property="og:description"]', post.excerpt);
+    setMeta('meta[property="og:url"]', postUrl);
+    setMeta('meta[property="og:image"]', imageUrl);
+    setMeta('meta[name="twitter:title"]', document.title);
+    setMeta('meta[name="twitter:description"]', post.excerpt);
+    setMeta('meta[name="twitter:image"]', imageUrl);
+    const structuredData = document.createElement('script');
+    structuredData.type = 'application/ld+json';
+    structuredData.textContent = JSON.stringify({
+      '@context':'https://schema.org','@type':'BlogPosting',headline:post.title,
+      description:post.excerpt,datePublished:post.date,mainEntityOfPage:postUrl,
+      image:imageUrl,author:{'@type':'Person',name:'Teejaye Deloach',url:'https://teejayedeloach.com/'}
+    });
+    document.head.appendChild(structuredData);
 
     article.innerHTML = `
       <div class="article-shell">
@@ -79,8 +99,8 @@
         ${post.featuredImage ? `<img class="article-featured" src="${escapeHTML(post.featuredImage)}" alt="">` : ''}
         <div class="article-content">${post.content}</div>
         <div class="article-end">
-          <p><strong>Thanks for reading.</strong> Explore more notes from the writing desk or join the newsletter for book news and behind-the-scenes updates.</p>
-          <div class="button-row"><a class="btn teal" href="writing-desk.html">More posts</a><a class="btn ghost" href="newsletter.html">Join the newsletter</a></div>
+          <p><strong>Thanks for reading.</strong> Explore more notes from the writing desk.</p>
+          <div class="button-row"><a class="btn teal" href="writing-desk.html">More posts</a></div>
         </div>
       </div>`;
   }
