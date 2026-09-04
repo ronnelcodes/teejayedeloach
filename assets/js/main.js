@@ -26,7 +26,7 @@ function checkout(){
   alert('Checkout is temporarily unavailable. Please try again later.');
 }
 function wireForms(){
-  document.querySelectorAll('form[data-config="contact"]').forEach(form=>{
+  document.querySelectorAll('form[data-config]').forEach(form=>{
     form.addEventListener('submit',async e=>{
       e.preventDefault();
       const status=form.querySelector('.form-status');
@@ -43,7 +43,9 @@ function wireForms(){
           body:new URLSearchParams(new FormData(form)).toString()
         });
         if(!response.ok)throw new Error('Submission failed');
-        form.innerHTML='<div class="contact-card form-success" role="status"><div class="eyebrow">Message received</div><h3>Thank you for reaching out.</h3><p>Your message has been sent successfully. I’ll respond as soon as I can.</p></div>';
+        const title=form.dataset.successTitle||'Message received';
+        const message=form.dataset.successMessage||'Thank you for reaching out. Your message has been sent successfully.';
+        form.innerHTML=`<div class="contact-card form-success" role="status"><div class="eyebrow">${title}</div><h3>Thank you.</h3><p>${message}</p></div>`;
       }catch(error){
         button.disabled=false;
         button.textContent=originalLabel;
@@ -53,6 +55,11 @@ function wireForms(){
   });
 }
 document.addEventListener('DOMContentLoaded',()=>{
+  if(!document.querySelector('.beta-announcement'))document.querySelector('.skip')?.insertAdjacentHTML('afterend','<a class="beta-announcement" href="beta-readers.html"><span class="beta-announcement-full"><strong>Beta readers wanted:</strong> <em>Borrowed for the Holidays</em> is complete. Apply to read early <span aria-hidden="true">→</span></span><span class="beta-announcement-short"><strong>Beta readers wanted!</strong> Apply to read early <span aria-hidden="true">→</span></span></a>');
+  document.querySelectorAll('.nav-links').forEach(nav=>{if(!nav.querySelector('a[href="beta-readers.html"]'))nav.querySelector('a[href="contact.html"]')?.insertAdjacentHTML('beforebegin','<a href="beta-readers.html">Beta Readers</a>')});
+  document.querySelectorAll('.footer-links').forEach(group=>{if(group.querySelector('a[href="books.html"]')&&!group.querySelector('a[href="beta-readers.html"]'))group.insertAdjacentHTML('beforeend','<a href="beta-readers.html">Beta Readers</a>')});
+  const borrowedSection=document.querySelector('#borrowed');
+  if(borrowedSection){const badge=borrowedSection.querySelector('.status.purple');if(badge){badge.textContent=borrowedSection.classList.contains('product-card')?'Apply to beta read':'Manuscript complete • Beta reading';badge.setAttribute('href','beta-readers.html');if(badge.tagName!=='A')badge.outerHTML=`<a class="status purple" href="beta-readers.html">${badge.textContent}</a>`}if(borrowedSection.classList.contains('product-card')){const description=borrowedSection.querySelector('p');if(description)description.textContent='The manuscript is complete and currently in beta reading. This title is not yet available for purchase.'}}
   cart=cart.filter(item=>products[item.id]).map(item=>({...item,qty:1,price:products[item.id].formats[0].price,checkout:products[item.id].formats[0].checkout}));saveCart();
   const menuButton=document.querySelector('.menu-btn');
   const nav=document.querySelector('.nav-links');
