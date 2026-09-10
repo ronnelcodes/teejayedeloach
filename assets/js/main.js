@@ -55,11 +55,6 @@ function wireForms(){
   });
 }
 document.addEventListener('DOMContentLoaded',()=>{
-  if(!document.querySelector('.beta-announcement'))document.querySelector('.skip')?.insertAdjacentHTML('afterend','<a class="beta-announcement" href="beta-readers.html"><span class="beta-announcement-full"><strong>Beta readers wanted:</strong> <em>Borrowed for the Holidays</em> is complete. Apply to read early <span aria-hidden="true">→</span></span><span class="beta-announcement-short"><strong>Beta readers wanted!</strong> Apply to read early <span aria-hidden="true">→</span></span></a>');
-  document.querySelectorAll('.nav-links').forEach(nav=>{if(!nav.querySelector('a[href="beta-readers.html"]'))nav.querySelector('a[href="contact.html"]')?.insertAdjacentHTML('beforebegin','<a href="beta-readers.html">Beta Readers</a>')});
-  document.querySelectorAll('.footer-links').forEach(group=>{if(group.querySelector('a[href="books.html"]')&&!group.querySelector('a[href="beta-readers.html"]'))group.insertAdjacentHTML('beforeend','<a href="beta-readers.html">Beta Readers</a>')});
-  const borrowedSection=document.querySelector('#borrowed');
-  if(borrowedSection){const badge=borrowedSection.querySelector('.status.purple');if(badge){badge.textContent=borrowedSection.classList.contains('product-card')?'Apply to beta read':'Manuscript complete • Beta reading';badge.setAttribute('href','beta-readers.html');if(badge.tagName!=='A')badge.outerHTML=`<a class="status purple" href="beta-readers.html">${badge.textContent}</a>`}if(borrowedSection.classList.contains('product-card')){const description=borrowedSection.querySelector('p');if(description)description.textContent='The manuscript is complete and currently in beta reading. This title is not yet available for purchase.'}}
   cart=cart.filter(item=>products[item.id]).map(item=>({...item,qty:1,price:products[item.id].formats[0].price,checkout:products[item.id].formats[0].checkout}));saveCart();
   const menuButton=document.querySelector('.menu-btn');
   const nav=document.querySelector('.nav-links');

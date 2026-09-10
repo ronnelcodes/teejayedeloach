@@ -37,6 +37,3 @@ The file contains a large comment block at the top with step-by-step instruction
 
 ## Newsletter
 The newsletter page, signup forms, navigation links, calls to action, configuration, and sitemap entry were removed on August 17, 2026. The footer now directs readers to the Writing Desk instead.
-
-## Beta readers
-`beta-readers.html` explains the beta-reading opportunity and links directly to the BetaBooks signup page at `https://betabooks.co/signup/book/k742g1`. Applications close September 13, selected readers need to return feedback by October 4, and manuscript access and feedback are managed through BetaBooks. The website no longer contains a separate beta-reader application form.
