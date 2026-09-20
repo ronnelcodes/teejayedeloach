@@ -16,6 +16,10 @@ The Contact page uses Netlify Forms and submits without leaving the page. After 
 
 ## Images
 Large PNG photographs and the logo were converted to WebP at high quality. Original files were not modified.
+The main About image is `assets/images/teejaye-about.webp`, optimized from the supplied `IMG_1462.PNG`.
+
+## Design system
+The editorial layout, responsive navigation, color system, book presentation, forms, blog cards, legal pages, and cart drawer are controlled in `assets/css/styles.css`. Teejaye's forest green, purple, teal, and warm paper palette is preserved throughout.
 
 ## Blog / From the Writing Desk
 The blog is now data-driven and does not require editing `writing-desk.html`.

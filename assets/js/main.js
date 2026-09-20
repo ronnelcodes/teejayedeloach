@@ -11,7 +11,13 @@ const products = {
 };
 
 const money = v => new Intl.NumberFormat('en-US',{style:'currency',currency:SITE_CONFIG.currency}).format(v);
-let cart = JSON.parse(localStorage.getItem('teejayeCart') || '[]');
+let cart = [];
+try {
+  const storedCart = JSON.parse(localStorage.getItem('teejayeCart') || '[]');
+  cart = Array.isArray(storedCart) ? storedCart : [];
+} catch {
+  localStorage.removeItem('teejayeCart');
+}
 function saveCart(){localStorage.setItem('teejayeCart',JSON.stringify(cart));updateCartUI()}
 function addToCart(id,formatName){const p=products[id]; if(!p)return; const f=p.formats.find(x=>x.name===formatName)||p.formats[0]; const key=id+'|'+f.name; const ex=cart.find(x=>x.key===key); if(!ex)cart.push({key,id,title:p.title,image:p.image,format:f.name,price:f.price,checkout:f.checkout,qty:1}); saveCart();openCart()}
 function removeCart(key){cart=cart.filter(x=>x.key!==key);saveCart()}
@@ -58,12 +64,13 @@ document.addEventListener('DOMContentLoaded',()=>{
   cart=cart.filter(item=>products[item.id]).map(item=>({...item,qty:1,price:products[item.id].formats[0].price,checkout:products[item.id].formats[0].checkout}));saveCart();
   const menuButton=document.querySelector('.menu-btn');
   const nav=document.querySelector('.nav-links');
-  menuButton?.addEventListener('click',()=>{const open=nav?.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(Boolean(open)))});
+  menuButton?.addEventListener('click',()=>{const open=nav?.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(Boolean(open)));menuButton.setAttribute('aria-label',open?'Close menu':'Open menu')});
   nav?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');menuButton?.setAttribute('aria-expanded','false')}));
   document.querySelectorAll('[data-open-cart]').forEach(x=>x.addEventListener('click',e=>{e.preventDefault();openCart()}));
   document.querySelectorAll('[data-close-cart]').forEach(x=>x.addEventListener('click',closeCart));
   document.querySelectorAll('[data-add]').forEach(btn=>btn.addEventListener('click',()=>{const card=btn.closest('[data-product]');addToCart(card.dataset.product,card.querySelector('select').value)}));
   document.querySelector('#cart-checkout')?.addEventListener('click',checkout);
-  document.addEventListener('keydown',event=>{if(event.key==='Escape'){if(document.querySelector('.cart-drawer.open'))closeCart();if(nav?.classList.contains('open')){nav.classList.remove('open');menuButton?.setAttribute('aria-expanded','false');menuButton?.focus()}}});
+  document.addEventListener('click',event=>{if(nav?.classList.contains('open')&&!event.target.closest('.nav-wrap')){nav.classList.remove('open');menuButton?.setAttribute('aria-expanded','false');menuButton?.setAttribute('aria-label','Open menu')}});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'){if(document.querySelector('.cart-drawer.open'))closeCart();if(nav?.classList.contains('open')){nav.classList.remove('open');menuButton?.setAttribute('aria-expanded','false');menuButton?.setAttribute('aria-label','Open menu');menuButton?.focus()}}});
   updateCartUI();wireForms();
 });
