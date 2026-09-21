@@ -1,0 +1,35 @@
+backend:
+  name: git-gateway
+  branch: main
+
+site_url: https://teejayedeloach.com
+display_url: https://teejayedeloach.com
+logo_url: https://teejayedeloach.com/assets/images/teejaye-logo-optimized.webp
+
+media_folder: assets/images/blog
+public_folder: /assets/images/blog
+
+collections:
+  - name: blog
+    label: From the Writing Desk
+    files:
+      - name: posts
+        label: Blog Posts
+        file: content/posts.json
+        format: json
+        fields:
+          - label: Posts
+            name: posts
+            widget: list
+            summary: "{{fields.title}}"
+            collapsed: true
+            minimize_collapsed: true
+            fields:
+              - {label: Title, name: title, widget: string}
+              - {label: URL Slug, name: slug, widget: string, hint: "Lowercase words separated by hyphens. Example: my-new-post"}
+              - {label: Category, name: category, widget: select, options: ["Writing Life", "Faith & Heart", "Book News", "Playlists & Vibes", "Behind the Scenes", "Personal"]}
+              - {label: Publish Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "MMMM D, YYYY", time_format: false}
+              - {label: Featured Image, name: featuredImage, widget: image, required: false}
+              - {label: Short Excerpt, name: excerpt, widget: text}
+              - {label: Published, name: published, widget: boolean, default: false, hint: "Leave off while drafting. Turn on when ready for readers."}
+              - {label: Post Body, name: content, widget: markdown}
