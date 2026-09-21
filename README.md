@@ -18,11 +18,6 @@ The Contact page uses Netlify Forms and submits without leaving the page. After 
 Large PNG photographs and the logo were converted to WebP at high quality. Original files were not modified.
 The seven author illustrations are optimized WebP files in `assets/images/` and are distributed across the Home, About, Books, Writing Desk, Shop, and Contact pages.
 
-The main About image is `assets/images/teejaye-about.webp`, optimized from the supplied `IMG_1462.PNG`.
-
-## Design system
-The editorial layout, responsive navigation, color system, book presentation, forms, blog cards, legal pages, and cart drawer are controlled in `assets/css/styles.css`. The visual system blends the current editorial green palette with the incoming forest green, purple, teal, and warm paper palette to preserve a cohesive brand across pages.
-
 ## Design system
 The visual system is controlled in `assets/css/styles.css`. The palette is based on the MLM pride flag: deep green, turquoise, mint, white, light blue, indigo, and purple.
 
