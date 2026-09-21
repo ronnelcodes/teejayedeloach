@@ -1,4 +1,4 @@
-// Blog rendering logic. Posts are managed at /admin/ and stored in content/posts.json.
+// Blog rendering logic. Posts are managed visually at /admin/ and compiled into content/posts.json.
 (function () {
   let posts = [];
 

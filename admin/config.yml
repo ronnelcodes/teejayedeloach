@@ -12,24 +12,72 @@ public_folder: /assets/images/blog
 collections:
   - name: blog
     label: From the Writing Desk
-    files:
-      - name: posts
-        label: Blog Posts
-        file: content/posts.json
-        format: json
-        fields:
-          - label: Posts
-            name: posts
-            widget: list
-            summary: "{{fields.title}}"
-            collapsed: true
-            minimize_collapsed: true
-            fields:
-              - {label: Title, name: title, widget: string}
-              - {label: URL Slug, name: slug, widget: string, hint: "Lowercase words separated by hyphens. Example: my-new-post"}
-              - {label: Category, name: category, widget: select, options: ["Writing Life", "Faith & Heart", "Book News", "Playlists & Vibes", "Behind the Scenes", "Personal"]}
-              - {label: Publish Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "MMMM D, YYYY", time_format: false}
-              - {label: Featured Image, name: featuredImage, widget: image, required: false}
-              - {label: Short Excerpt, name: excerpt, widget: text}
-              - {label: Published, name: published, widget: boolean, default: false, hint: "Leave off while drafting. Turn on when ready for readers."}
-              - {label: Post Body, name: content, widget: markdown}
+    label_singular: Blog Post
+    folder: content/posts
+    create: true
+    delete: true
+    extension: json
+    format: json
+    slug: "{{slug}}"
+    summary: "{{title}} · {{date}}"
+    sortable_fields: [date, title, category]
+    view_filters:
+      - label: Published
+        field: published
+        pattern: true
+      - label: Drafts
+        field: published
+        pattern: false
+    fields:
+      - label: Post title
+        name: title
+        widget: string
+        hint: This becomes the headline and the post's web address.
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - Writing Life
+          - Faith & Heart
+          - Book News
+          - Playlists & Vibes
+          - Behind the Scenes
+          - Personal
+      - label: Publish date
+        name: date
+        widget: datetime
+        default: "{{now}}"
+        format: YYYY-MM-DD
+        date_format: MMMM D, YYYY
+        time_format: false
+        picker_utc: true
+      - label: Featured image
+        name: featuredImage
+        widget: image
+        required: false
+        choose_url: false
+        hint: Optional. Upload an image or choose one already in the media library.
+      - label: Short excerpt
+        name: excerpt
+        widget: text
+        hint: Write one or two sentences that will appear on the Writing Desk page.
+      - label: Published
+        name: published
+        widget: boolean
+        default: false
+        hint: Leave this off while drafting. Turn it on when the post is ready for readers.
+      - label: Post body
+        name: body
+        widget: richtext
+        modes: [rich_text]
+        buttons:
+          - bold
+          - italic
+          - link
+          - heading-two
+          - heading-three
+          - quote
+          - bulleted-list
+          - numbered-list
+        editor_components: [image]
+        hint: Write and format the post here. No HTML or Markdown is required.

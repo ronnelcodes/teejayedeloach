@@ -26,18 +26,20 @@ The site includes a private visual editor at:
 
 `https://teejayedeloach.com/admin/`
 
-It uses Decap CMS to edit `content/posts.json`, upload featured images, save drafts, and publish posts through GitHub. Readers do not see the admin page in the navigation, and search engines are instructed not to index it.
+It uses Decap CMS to provide a WordPress-style writing screen with separate entries for each post. The editor includes normal fields for the title, category, date, featured image, excerpt, draft status, and a rich-text post body. It can upload images, save drafts, and publish through GitHub without editing HTML, JSON, Markdown, or JavaScript. Readers do not see the admin page in the navigation, and search engines are instructed not to index it.
+
+Each post is stored separately in `content/posts/`. During deployment, `scripts/build-content.mjs` automatically assembles the files into `content/posts.json` for the public Writing Desk. Do not edit the generated `content/posts.json` manually.
 
 ### One-time Netlify setup
 1. Push this complete website to the GitHub repository and wait for Netlify to deploy it.
 2. In Netlify, open the Teejaye Deloach project.
-3. Go to **Integrations > Identity** and enable Identity.
+3. Open **Identity** in the project sidebar and enable Identity.
 4. Under Identity registration preferences, select **Invite only**.
 5. Under **Services > Git Gateway**, enable Git Gateway.
 6. Invite your own email address under the Identity users section.
 7. Open the invitation email, create your password, and then visit `https://teejayedeloach.com/admin/`.
 
-To post, open **From the Writing Desk > Blog Posts**, choose **Add posts**, complete the fields, turn on **Published**, and save. The CMS commits the change to GitHub and Netlify redeploys the site.
+To post, open **From the Writing Desk**, choose **New Blog Post**, complete the fields, write in the visual editor, turn on **Published**, and save. The CMS commits the change to GitHub and Netlify rebuilds the public blog automatically.
 
 `assets/js/posts.js` remains only as an emergency fallback if `content/posts.json` cannot load.
 

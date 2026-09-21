@@ -74,12 +74,3 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.addEventListener('keydown',event=>{if(event.key==='Escape'){if(document.querySelector('.cart-drawer.open'))closeCart();if(nav?.classList.contains('open')){nav.classList.remove('open');menuButton?.setAttribute('aria-expanded','false');menuButton?.setAttribute('aria-label','Open menu');menuButton?.focus()}}});
   updateCartUI();wireForms();
 });
-
-// Send an authenticated blog editor to the private CMS after accepting an invite.
-if(window.netlifyIdentity){
-  window.netlifyIdentity.on('init',user=>{
-    if(!user){
-      window.netlifyIdentity.on('login',()=>{window.location.href='/admin/'});
-    }
-  });
-}
