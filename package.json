@@ -1,8 +1,0 @@
-{
-  "name": "teejaye-deloach-author-site",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "build": "node scripts/build-content.mjs"
-  }
-}
